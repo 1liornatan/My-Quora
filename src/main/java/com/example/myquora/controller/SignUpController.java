@@ -1,7 +1,9 @@
 package com.example.myquora.controller;
 
 import com.example.myquora.dto.CreateUserDTO;
+import com.example.myquora.dto.LoginDTO;
 import com.example.myquora.dto.MessageDTO;
+import com.example.myquora.request.LoginRequest;
 import com.example.myquora.request.SignUpRequest;
 import com.example.myquora.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,14 @@ public class SignUpController {
         CreateUserDTO createUserDTO = modelMapper.map(request, CreateUserDTO.class);
         MessageDTO messageDTO = userService.createUser(createUserDTO);
 
+
+        return ResponseEntity.ok(messageDTO.getMessage());
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+        LoginDTO loginDTO = modelMapper.map(request, LoginDTO.class);
+        MessageDTO messageDTO = userService.loginUser(loginDTO);
 
         return ResponseEntity.ok(messageDTO.getMessage());
     }

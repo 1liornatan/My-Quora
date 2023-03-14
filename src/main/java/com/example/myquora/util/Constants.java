@@ -1,6 +1,7 @@
 package com.example.myquora.util;
 
 public class Constants {
+    public static final String MSG_LOGIN_SUCCESS = "Logged in successfully!";
     public static Integer MIN_FIELD_LENGTH = 3;
     public static Integer MIN_PASS_LENGTH = 6;
 
