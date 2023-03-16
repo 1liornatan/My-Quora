@@ -11,11 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class SignUpController {
+public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
@@ -28,11 +29,16 @@ public class SignUpController {
         return ResponseEntity.ok(messageDTO.getMessage());
     }
 
-    @GetMapping("/login")
+/*    @GetMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         LoginDTO loginDTO = modelMapper.map(request, LoginDTO.class);
         MessageDTO messageDTO = userService.loginUser(loginDTO);
 
         return ResponseEntity.ok(messageDTO.getMessage());
+    }*/
+
+    @RequestMapping("/")
+    public String helloAdmin() {
+        return "hello user!";
     }
 }

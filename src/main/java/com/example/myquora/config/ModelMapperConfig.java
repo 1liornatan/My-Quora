@@ -1,4 +1,4 @@
-package com.example.myquora.mapper;
+package com.example.myquora.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

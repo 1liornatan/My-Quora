@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,10 +35,10 @@ public class UserService {
         checkPassword(password);
         checkEmail(email);
 
-        List<UserEntity> userList = userRepository.findByEmail(email);
+        Optional<UserEntity> userList = userRepository.findByEmail(email);
         checkUserExists(userList);
 
-        UserEntity userEntity = userList.get(0);
+        UserEntity userEntity = userList.get();
         checkPasswordMatch(userEntity.getPassword(), password);
 
         MessageDTO messageDTO = new MessageDTO();
@@ -53,8 +53,8 @@ public class UserService {
         }
     }
 
-    private void checkUserExists(List<UserEntity> userList) {
-        if(userList.size() <= 0) {
+    private void checkUserExists(Optional<UserEntity> userList) {
+        if(!userList.isPresent()) {
             // TODO: Exception
         }
     }
