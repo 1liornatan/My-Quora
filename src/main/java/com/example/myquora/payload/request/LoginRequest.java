@@ -1,4 +1,4 @@
-package com.example.myquora.request;
+package com.example.myquora.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -8,6 +8,6 @@ public class LoginRequest {
     @JsonProperty(value = "password")
     private String password;
 
-    @JsonProperty(value = "email")
-    private String email;
+    @JsonProperty(value = "username")
+    private String username;
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Page</title>
+	<link rel="stylesheet" href="signup/style.css">
+</head>
+<body>
+	<div class="center">
+		<form method="POST" action="#" id="register-form">
+			<h2>Register</h2>
+			<label for="first-name">First Name:</label>
+			<input type="text" id="first-name" name="first_name" required>
+			<label for="last-name">Last Name:</label>
+			<input type="text" id="last-name" name="last_name" required>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required>
+			<input type="button" value="Register" onclick="submitForm()">
+		</form>
+	</div>
+	<script src="signup/script.js"></script>
+</body>
+</html>
