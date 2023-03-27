@@ -32,4 +32,9 @@ public class ResponseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "thread")
     private ThreadEntity thread;
+
+    @PrePersist
+    private void createdAt() {
+        this.localDateTime = LocalDateTime.now();
+    }
 }

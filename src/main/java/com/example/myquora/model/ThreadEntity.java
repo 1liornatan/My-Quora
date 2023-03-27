@@ -1,6 +1,7 @@
 package com.example.myquora.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -25,11 +26,20 @@ public class ThreadEntity {
     @Column(name = "content", updatable = false, nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @NotBlank
+    private Boolean locked;
+
     @Column(name = "local_date_time", updatable = false, nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime localDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private UserEntity owner;
+
+    @PrePersist
+    private void createdAt() {
+        this.localDateTime = LocalDateTime.now();
+        this.locked = false;
+    }
 
 }
