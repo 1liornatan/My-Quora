@@ -8,11 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import java.security.SignatureException;
 import java.util.Date;
 
 
@@ -70,6 +68,10 @@ public class JwtUtils {
 
     public String getUsernameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getUsernameFromRequest(HttpServletRequest request) {
+        return getUsernameFromJwtToken(getJwtFromCookies(request));
     }
 
     public boolean validateJwtToken(String authToken) {
