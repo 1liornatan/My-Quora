@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 public class SignUpRequest {
 
-    @JsonProperty(value = "first-name")
+    @JsonProperty(value = "first_name")
     private String firstName;
 
-    @JsonProperty(value = "last-name")
+    @JsonProperty(value = "last_name")
     private String lastName;
 
     @JsonProperty(value = "password")

@@ -2,6 +2,7 @@ package com.example.myquora.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class ThreadEntity {
     @Column(name = "content", updatable = false, nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @NotBlank
+    @NotNull
     private Boolean locked;
 
     @Column(name = "local_date_time", updatable = false, nullable = false, columnDefinition = "TIMESTAMP")

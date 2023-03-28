@@ -9,7 +9,7 @@ function submitForm() {
   };
 
   // Send the form data as JSON to the server
-  fetch("/api/auth/register", {
+  fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify(formData),
     headers: {
@@ -19,7 +19,7 @@ function submitForm() {
   .then(response => {
     if (response.ok) {
       // Redirect to the login page
-      window.location.href = "/api/auth/login";
+      window.location.href = "/login.html";
     } else {
       // Display an error message
       alert("Registration failed");
