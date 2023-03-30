@@ -7,8 +7,10 @@ import com.example.myquora.payload.request.CreateResponseRequest;
 import com.example.myquora.security.jwt.JwtUtils;
 import com.example.myquora.service.ResponseService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,7 @@ public class ResponseController {
 
         ThreadDTO threadDTO = responseService.addResponse(createResponseDTO);
 
-        return ResponseEntity.ok(threadDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(threadDTO);
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/response")

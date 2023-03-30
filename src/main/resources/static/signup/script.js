@@ -22,7 +22,7 @@ function submitForm() {
       window.location.href = "/login.html";
     } else {
       // Display an error message
-      alert("Registration failed");
+      response.text().then(text => { alert(text) })
     }
   })
   .catch(error => {

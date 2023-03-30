@@ -21,6 +21,7 @@ public class ThreadEntity {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    @NotBlank
     @Column(name = "title", updatable = false, nullable = false, columnDefinition = "TEXT")
     private String title;
 
@@ -30,6 +31,7 @@ public class ThreadEntity {
     @NotNull
     private Boolean locked;
 
+    @NotNull
     @Column(name = "local_date_time", updatable = false, nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime localDateTime;
 
