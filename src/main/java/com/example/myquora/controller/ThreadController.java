@@ -26,7 +26,7 @@ public class ThreadController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/thread")
-    public ResponseEntity<?> getThread(@RequestParam("t") Integer threadId) {
+    public ResponseEntity<?> getThread(@RequestParam("t") Long threadId) {
         ThreadDTO threadDTO = threadService.getThread(threadId);
         ThreadResponse threadResponse = modelMapper.map(threadDTO, ThreadResponse.class);
 

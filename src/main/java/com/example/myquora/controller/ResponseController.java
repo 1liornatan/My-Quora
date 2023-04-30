@@ -26,7 +26,7 @@ public class ResponseController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/response")
     public ResponseEntity<?> addResponse(@RequestBody CreateResponseRequest createResponseRequest,
-                                         @RequestParam("t") Integer threadId,
+                                         @RequestParam("t") Long threadId,
                                          HttpServletRequest req) {
         CreateResponseDTO createResponseDTO = modelMapper.map(createResponseRequest, CreateResponseDTO.class);
         createResponseDTO.setUsername(jwtUtils.getUsernameFromRequest(req));
@@ -38,7 +38,7 @@ public class ResponseController {
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/response")
-    public ResponseEntity<?> getAllThreadResponses(@RequestParam("t") Integer threadId) {
+    public ResponseEntity<?> getAllThreadResponses(@RequestParam("t") Long threadId) {
         ResponsesDTO responsesDTO = responseService.getAllThreadResponses(threadId);
 
         return ResponseEntity.ok(responsesDTO);

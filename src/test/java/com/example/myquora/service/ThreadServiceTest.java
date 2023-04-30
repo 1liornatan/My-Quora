@@ -48,7 +48,6 @@ public class ThreadServiceTest {
                 .build();
 
         userEntity = UserEntity.builder()
-                .id(1L)
                 .username("testUsername")
                 .email("testEmail@outlook.com")
                 .firstName("testFirstName")
@@ -63,7 +62,6 @@ public class ThreadServiceTest {
                 .build();
 
         threadDTO = ThreadDTO.builder()
-                .threadId(1L)
                 .content(createThreadDTO.getContent())
                 .title(createThreadDTO.getTitle())
                 .email(userEntity.getEmail())
@@ -72,14 +70,24 @@ public class ThreadServiceTest {
     }
     @Test
     public void testCreateThread() {
-        // ensure no such user
         Mockito.when(userRepository.findByUsername(userEntity.getUsername())).thenReturn(Optional.ofNullable(userEntity));
         Mockito.when(threadRepository.save(threadEntity)).thenReturn(threadEntity);
         Mockito.when(modelMapper.map(threadEntity, ThreadDTO.class)).thenReturn(threadDTO);
 
         ThreadDTO savedThreadDTO = threadService.createThread(createThreadDTO);
 
-        Assertions.assertNotNull(savedThreadDTO);
-
+        Assertions.assertEquals(threadDTO, savedThreadDTO);
     }
+
+    @Test
+    public void testGetThread() {
+        Mockito.when(threadRepository.findById(1L)).thenReturn(Optional.ofNullable(threadEntity));
+        Mockito.when(modelMapper.map(threadEntity, ThreadDTO.class)).thenReturn(threadDTO);
+
+        ThreadDTO insertedThreadDTO = threadService.getThread(1L);
+
+        Assertions.assertEquals(threadDTO, insertedThreadDTO);
+    }
+
+
 }
