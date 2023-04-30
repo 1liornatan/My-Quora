@@ -1,6 +1,8 @@
 package com.example.myquora.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,9 +21,11 @@ public class ResponseEntity {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    @NotNull
     @Column(name = "local_date_time", updatable = false, nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime localDateTime;
 
+    @NotBlank
     @Column(name = "content", updatable = false, nullable = false, columnDefinition = "TEXT")
     private String content;
 

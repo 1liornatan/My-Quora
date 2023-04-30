@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 public class ThreadService {
@@ -20,32 +18,30 @@ public class ThreadService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public ThreadDTO getThread(Integer threadId) {
-        Optional<ThreadEntity> optionalThreadEntity = threadRepository.findById(threadId);
-        if(optionalThreadEntity.isEmpty())
-            throw new QuoraException(String.format("Thread with id '%d' was not found.", threadId));
-
-        ThreadEntity threadEntity = optionalThreadEntity.get();
+    public ThreadDTO getThread(Long threadId) {
+        ThreadEntity threadEntity = threadRepository.findById(threadId)
+                .orElseThrow(() -> new QuoraException(String.format("Thread with id '%d' was not found.", threadId)));
 
         return modelMapper.map(threadEntity, ThreadDTO.class);
     }
 
     public ThreadDTO createThread(CreateThreadDTO createThreadDTO) {
         String username = createThreadDTO.getUsername();
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsername(username)
+                .orElseThrow(() -> new QuoraException(String.format("User '%s' does not exist", username)));
 
-        if(optionalUserEntity.isEmpty())
-            throw new QuoraException(String.format("User '%s' does not exist", username));
-
-        UserEntity userEntity = optionalUserEntity.get();
-        ThreadEntity threadEntity = ThreadEntity.builder()
-                .content(createThreadDTO.getContent())
-                .title(createThreadDTO.getTitle())
-                .owner(userEntity)
-                .build();
+        ThreadEntity threadEntity = buildThreadEntityUsingCreateThreadDTOAndUserEntity(createThreadDTO, userEntity);
 
         ThreadEntity insertedEntity = threadRepository.save(threadEntity);
 
         return modelMapper.map(insertedEntity, ThreadDTO.class);
+    }
+
+    private ThreadEntity buildThreadEntityUsingCreateThreadDTOAndUserEntity(CreateThreadDTO createThreadDTO, UserEntity userEntity) {
+        return ThreadEntity.builder()
+                .content(createThreadDTO.getContent())
+                .title(createThreadDTO.getTitle())
+                .owner(userEntity)
+                .build();
     }
 }

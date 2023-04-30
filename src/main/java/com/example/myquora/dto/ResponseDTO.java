@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class ResponseDTO {
+    private Long id;
     private String username;
     private String email;
     private LocalDateTime localDateTime;

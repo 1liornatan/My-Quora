@@ -29,7 +29,7 @@ public class ResponseService {
 
 
     public ThreadDTO addResponse(CreateResponseDTO createResponseDTO) {
-        Integer threadId = createResponseDTO.getThreadId();
+        Long threadId = createResponseDTO.getThreadId();
         ThreadEntity threadEntity = getThreadEntity(threadId);
         assertThreadIsUnlocked(threadEntity);
         UserEntity userEntity = getUserEntity(createResponseDTO.getUsername());
@@ -44,7 +44,7 @@ public class ResponseService {
         return modelMapper.map(getThreadEntity(threadId), ThreadDTO.class);
     }
 
-    private ThreadEntity getThreadEntity(Integer threadId) {
+    private ThreadEntity getThreadEntity(Long threadId) {
         Optional<ThreadEntity> optionalThreadEntity = threadRepository.findById(threadId);
 
         if(optionalThreadEntity.isEmpty())
@@ -67,7 +67,7 @@ public class ResponseService {
         return optionalUserEntity.get();
     }
 
-    public ResponsesDTO getAllThreadResponses(Integer threadId) {
+    public ResponsesDTO getAllThreadResponses(Long threadId) {
         ThreadEntity threadEntity = getThreadEntity(threadId);
         List<ResponseEntity> responseEntityList = responseRepository.findByThread(threadEntity);
         List<ResponseDTO> responseDTOList = responseEntityList.stream()

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CreateResponseDTO {
-    private Integer threadId;
+    private Long threadId;
     private String content;
     private String username;
 }

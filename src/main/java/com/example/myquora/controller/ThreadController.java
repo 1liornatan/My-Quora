@@ -7,8 +7,10 @@ import com.example.myquora.payload.response.ThreadResponse;
 import com.example.myquora.security.jwt.JwtUtils;
 import com.example.myquora.service.ThreadService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class ThreadController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/thread")
-    public ResponseEntity<?> getThread(@RequestParam("t") Integer threadId) {
+    public ResponseEntity<?> getThread(@RequestParam("t") Long threadId) {
         ThreadDTO threadDTO = threadService.getThread(threadId);
         ThreadResponse threadResponse = modelMapper.map(threadDTO, ThreadResponse.class);
 
@@ -39,7 +41,7 @@ public class ThreadController {
         ThreadDTO threadDTO = threadService.createThread(createThreadDTO);
 
         ThreadResponse threadResponse = modelMapper.map(threadDTO, ThreadResponse.class);
-        return ResponseEntity.ok(threadResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(threadResponse);
     }
 
 }

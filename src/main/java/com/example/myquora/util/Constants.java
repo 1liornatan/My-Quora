@@ -7,4 +7,5 @@ public class Constants {
     public static final Integer MIN_PASS_LENGTH = 6;
 
     public static final String MSG_CREATE_USER_SUCCESS = "Signed up successfully, you may login now.";
+    public static final String MSG_PRE_ERROR = "There was a problem with the request: ";
 }

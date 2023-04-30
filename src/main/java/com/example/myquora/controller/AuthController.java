@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         authService.registerUser(modelMapper.map(signUpRequest, CreateUserDTO.class));
-        return ResponseEntity.ok(Constants.MSG_CREATE_USER_SUCCESS);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Constants.MSG_CREATE_USER_SUCCESS);
     }
 
     @PostMapping("/signout")
