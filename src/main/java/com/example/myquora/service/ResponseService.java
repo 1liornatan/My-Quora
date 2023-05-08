@@ -45,12 +45,8 @@ public class ResponseService {
     }
 
     private ThreadEntity getThreadEntity(Long threadId) {
-        Optional<ThreadEntity> optionalThreadEntity = threadRepository.findById(threadId);
-
-        if(optionalThreadEntity.isEmpty())
-            throw new QuoraException(String.format("Thread with id '%d' was not found.", threadId));
-
-        return optionalThreadEntity.get();
+        return threadRepository.findById(threadId)
+                .orElseThrow(() -> new QuoraException(String.format("Thread with id '%d' was not found.", threadId)));
     }
 
     private void assertThreadIsUnlocked(ThreadEntity threadEntity) {
@@ -59,12 +55,8 @@ public class ResponseService {
     }
 
     private UserEntity getUserEntity(String username) {
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(username);
-
-        if(optionalUserEntity.isEmpty())
-            throw new QuoraException(String.format("Username '%s' was not found.", username));
-
-        return optionalUserEntity.get();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new QuoraException(String.format("Username '%s' was not found.", username)));
     }
 
     public ResponsesDTO getAllThreadResponses(Long threadId) {
