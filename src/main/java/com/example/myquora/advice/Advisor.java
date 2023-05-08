@@ -1,5 +1,6 @@
-package com.example.myquora.advice.exception;
+package com.example.myquora.advice;
 
+import com.example.myquora.advice.exception.QuoraException;
 import com.example.myquora.payload.response.QuoraConflictResponse;
 import com.example.myquora.util.Constants;
 import jakarta.validation.ConstraintViolationException;
