@@ -6,6 +6,8 @@ import com.example.myquora.model.ThreadEntity;
 import com.example.myquora.model.UserEntity;
 import com.example.myquora.repository.ThreadRepository;
 import com.example.myquora.repository.UserRepository;
+import com.example.myquora.util.Constants;
+import org.apache.logging.log4j.ThreadContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,14 +43,16 @@ public class ThreadServiceTest {
 
     @BeforeEach
     void init() {
+        final String testUsername = "testUsername";
+
+        ThreadContext.put(Constants.KEY_USERNAME, testUsername);
         createThreadDTO = CreateThreadDTO.builder()
                 .content("Testing")
                 .title("Test")
-                .username("testUsername")
                 .build();
 
         userEntity = UserEntity.builder()
-                .username("testUsername")
+                .username(testUsername)
                 .email("testEmail@outlook.com")
                 .firstName("testFirstName")
                 .lastName("testLastName")
@@ -65,7 +69,6 @@ public class ThreadServiceTest {
                 .content(createThreadDTO.getContent())
                 .title(createThreadDTO.getTitle())
                 .email(userEntity.getEmail())
-                .username(createThreadDTO.getUsername())
                 .build();
     }
     @Test

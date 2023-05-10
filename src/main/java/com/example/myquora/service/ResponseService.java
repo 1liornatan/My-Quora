@@ -11,12 +11,12 @@ import com.example.myquora.model.UserEntity;
 import com.example.myquora.repository.ResponseRepository;
 import com.example.myquora.repository.ThreadRepository;
 import com.example.myquora.repository.UserRepository;
+import com.example.myquora.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,7 @@ public class ResponseService {
         Long threadId = createResponseDTO.getThreadId();
         ThreadEntity threadEntity = getThreadEntity(threadId);
         assertThreadIsUnlocked(threadEntity);
-        UserEntity userEntity = getUserEntity(createResponseDTO.getUsername());
+        UserEntity userEntity = getUserEntity(JwtUtils.getUsernameFromSession());
 
         ResponseEntity responseEntity = ResponseEntity.builder()
                 .author(userEntity)

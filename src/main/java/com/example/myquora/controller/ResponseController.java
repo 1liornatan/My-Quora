@@ -20,16 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class ResponseController {
     private final ModelMapper modelMapper;
-    private final JwtUtils jwtUtils;
     private final ResponseService responseService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/response")
     public ResponseEntity<?> addResponse(@RequestBody CreateResponseRequest createResponseRequest,
-                                         @RequestParam("t") Long threadId,
-                                         HttpServletRequest req) {
+                                         @RequestParam("t") Long threadId) {
         CreateResponseDTO createResponseDTO = modelMapper.map(createResponseRequest, CreateResponseDTO.class);
-        createResponseDTO.setUsername(jwtUtils.getUsernameFromRequest(req));
         createResponseDTO.setThreadId(threadId);
 
         ThreadDTO threadDTO = responseService.addResponse(createResponseDTO);

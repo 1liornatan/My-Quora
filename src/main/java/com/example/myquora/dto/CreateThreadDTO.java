@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class CreateThreadDTO {
     private String title;
     private String content;
-    private String username;
 }

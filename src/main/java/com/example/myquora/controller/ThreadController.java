@@ -4,10 +4,8 @@ import com.example.myquora.dto.CreateThreadDTO;
 import com.example.myquora.dto.ThreadDTO;
 import com.example.myquora.payload.request.CreateThreadRequest;
 import com.example.myquora.payload.response.ThreadResponse;
-import com.example.myquora.security.jwt.JwtUtils;
 import com.example.myquora.service.ThreadService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class ThreadController {
     private final ThreadService threadService;
     private final ModelMapper modelMapper;
-    private final JwtUtils jwtUtils;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/thread")
@@ -37,7 +34,6 @@ public class ThreadController {
     @PostMapping("/thread")
     public ResponseEntity<?> createThread(@RequestBody CreateThreadRequest createThreadRequest, HttpServletRequest req) {
         CreateThreadDTO createThreadDTO = modelMapper.map(createThreadRequest, CreateThreadDTO.class);
-        createThreadDTO.setUsername(jwtUtils.getUsernameFromRequest(req));
         ThreadDTO threadDTO = threadService.createThread(createThreadDTO);
 
         ThreadResponse threadResponse = modelMapper.map(threadDTO, ThreadResponse.class);

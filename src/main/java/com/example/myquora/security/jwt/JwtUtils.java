@@ -1,9 +1,12 @@
 package com.example.myquora.security.jwt;
 
 import com.example.myquora.security.service.UserDetailsImpl;
+import com.example.myquora.util.Constants;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +18,8 @@ import java.util.Date;
 
 
 @Component
+@Log4j2
 public class JwtUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${myquora.app.jwtSecret}")
     private String jwtSecret;
@@ -67,11 +70,16 @@ public class JwtUtils {
     }
 
     public String getUsernameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        String username = null;
+
+        if(token != null)
+            username = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+
+        return username;
     }
 
-    public String getUsernameFromRequest(HttpServletRequest request) {
-        return getUsernameFromJwtToken(getJwtFromCookies(request));
+    public void setUsernameFromRequest(HttpServletRequest request) {
+        ThreadContext.put(Constants.KEY_USERNAME, getUsernameFromRequest(request));
     }
 
     public boolean validateJwtToken(String authToken) {
@@ -79,16 +87,24 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
+            log.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
+            log.error("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
+            log.error("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+            log.error("JWT claims string is empty: {}", e.getMessage());
         }
 
         return false;
+    }
+
+    private String getUsernameFromRequest(HttpServletRequest request) {
+        return getUsernameFromJwtToken(getJwtFromCookies(request));
+    }
+
+    public static String getUsernameFromSession() {
+        return ThreadContext.get(Constants.KEY_USERNAME);
     }
 
 }

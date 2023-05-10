@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class CreateResponseDTO {
     private Long threadId;
     private String content;
-    private String username;
 }

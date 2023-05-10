@@ -1,0 +1,32 @@
+10-05-2023 12:54:55.207 INFO: HV000001: Hibernate Validator 7.0.1.Final
+10-05-2023 12:54:55.235 INFO: Starting MyQuoraApplication using Java 17.0.5 with PID 25912 (C:\Users\Lior\Documents\GitHub\My-Quora\target\classes started by Lior in C:\Users\Lior\Documents\GitHub\My-Quora)
+10-05-2023 12:54:55.240 INFO: No active profile set, falling back to 1 default profile: "default"
+10-05-2023 12:54:55.872 INFO: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10-05-2023 12:54:55.942 INFO: Finished Spring Data repository scanning in 62 ms. Found 4 JPA repository interfaces.
+10-05-2023 12:54:56.506 INFO: Tomcat initialized with port(s): 8080 (http)
+10-05-2023 12:54:56.514 INFO: Initializing ProtocolHandler ["http-nio-8080"]
+10-05-2023 12:54:56.515 INFO: Starting service [Tomcat]
+10-05-2023 12:54:56.515 INFO: Starting Servlet engine: [Apache Tomcat/10.1.5]
+10-05-2023 12:54:56.586 INFO: Initializing Spring embedded WebApplicationContext
+10-05-2023 12:54:56.586 INFO: Root WebApplicationContext: initialization completed in 1307 ms
+10-05-2023 12:54:56.721 INFO: HHH000204: Processing PersistenceUnitInfo [name: default]
+10-05-2023 12:54:56.762 INFO: HHH000412: Hibernate ORM core version 6.1.7.Final
+10-05-2023 12:54:56.942 INFO: HikariPool-1 - Starting...
+10-05-2023 12:54:57.083 INFO: HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4a9869a8
+10-05-2023 12:54:57.085 INFO: HikariPool-1 - Start completed.
+10-05-2023 12:54:57.110 INFO: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+10-05-2023 12:54:57.956 INFO: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+10-05-2023 12:54:57.965 INFO: Initialized JPA EntityManagerFactory for persistence unit 'default'
+10-05-2023 12:54:58.487 WARN: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+10-05-2023 12:54:58.735 INFO: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f0b5619, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67afc9b6, org.springframework.security.web.context.SecurityContextHolderFilter@8eeb4c5, org.springframework.security.web.header.HeaderWriterFilter@202d1424, org.springframework.web.filter.CorsFilter@36ce9eaf, org.springframework.security.web.authentication.logout.LogoutFilter@4f6a5cc9, com.example.myquora.security.jwt.AuthTokenFilter@6fe337a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32bae609, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@106b476a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a79d99c, org.springframework.security.web.session.SessionManagementFilter@590f806a, org.springframework.security.web.access.ExceptionTranslationFilter@6eb332d1, org.springframework.security.web.access.intercept.AuthorizationFilter@296949c8]
+10-05-2023 12:54:58.956 INFO: Starting ProtocolHandler ["http-nio-8080"]
+10-05-2023 12:54:58.971 INFO: Tomcat started on port(s): 8080 (http) with context path ''
+10-05-2023 12:54:58.979 INFO: Started MyQuoraApplication in 4.074 seconds (process running for 4.926)
+10-05-2023 12:55:03.885 INFO: Initializing Spring DispatcherServlet 'dispatcherServlet'
+10-05-2023 12:55:03.886 INFO: Initializing Servlet 'dispatcherServlet'
+10-05-2023 12:55:03.888 INFO: Completed initialization in 0 ms
+10-05-2023 12:55:04.015 INFO: Incoming request | #1 | resource: /api/auth/signin | HTTP Verb POST
+10-05-2023 12:55:04.394 INFO: User '1liornatan' logged in successfully
+10-05-2023 12:55:45.345 INFO: Closing JPA EntityManagerFactory for persistence unit 'default'
+10-05-2023 12:55:45.347 INFO: HikariPool-1 - Shutdown initiated...
+10-05-2023 12:55:45.351 INFO: HikariPool-1 - Shutdown completed.
