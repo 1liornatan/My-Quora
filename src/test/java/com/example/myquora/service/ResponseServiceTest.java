@@ -8,6 +8,8 @@ import com.example.myquora.model.UserEntity;
 import com.example.myquora.repository.ResponseRepository;
 import com.example.myquora.repository.ThreadRepository;
 import com.example.myquora.repository.UserRepository;
+import com.example.myquora.util.Constants;
+import org.apache.logging.log4j.ThreadContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,34 +46,37 @@ public class ResponseServiceTest {
     ThreadEntity threadEntity;
     UserEntity userEntity;
 
-    final String testUsername1 = "testUsername1";
-    final String testContent = "testResponseContent";
-    final String testEmail = "testEmail@outlook.com";
-    final String testTitle = "testTitle";
 
     @BeforeEach
     void init() {
+        final String testUsername = "testUsername1";
+        final String testContent = "testResponseContent";
+        final String testEmail = "testEmail@outlook.com";
+        final String testTitle = "testTitle";
+        final String testFirstName = "testFirstName";
+        final String testLastName = "testLastName";
+        final String testThreadContent = "testThreadContent";
+
+        ThreadContext.put(Constants.KEY_USERNAME, testUsername);
 
         createResponseDTO = CreateResponseDTO.builder()
                 .content(testContent)
-                .username(testUsername1)
                 .threadId(1L)
                 .build();
 
         userEntity = UserEntity.builder()
                 .id(1L)
-                .username(testUsername1)
-                .firstName("testFirstName")
-                .lastName("testLastName")
+                .username(testUsername)
+                .firstName(testFirstName)
+                .lastName(testLastName)
                 .email(testEmail)
                 .build();
 
 
         threadDTO = ThreadDTO.builder()
                 .threadId(1L)
-                .username(testUsername1)
                 .title(testTitle)
-                .content("testThreadContent")
+                .content(testThreadContent)
                 .email(testEmail)
                 .build();
 
@@ -92,7 +97,7 @@ public class ResponseServiceTest {
     @Test
     public void testAddResponse() {
         Mockito.when(threadRepository.findById(1L)).thenReturn(Optional.ofNullable(threadEntity));
-        Mockito.when(userRepository.findByUsername(testUsername1)).thenReturn(Optional.ofNullable(userEntity));
+        Mockito.when(userRepository.findByUsername(userEntity.getUsername())).thenReturn(Optional.ofNullable(userEntity));
         Mockito.when(responseRepository.save(responseEntity)).thenReturn(responseEntity);
         Mockito.when(modelMapper.map(threadEntity, ThreadDTO.class)).thenReturn(threadDTO);
 

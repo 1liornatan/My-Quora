@@ -7,6 +7,7 @@ import com.example.myquora.model.ThreadEntity;
 import com.example.myquora.model.UserEntity;
 import com.example.myquora.repository.ThreadRepository;
 import com.example.myquora.repository.UserRepository;
+import com.example.myquora.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class ThreadService {
     }
 
     public ThreadDTO createThread(CreateThreadDTO createThreadDTO) {
-        String username = createThreadDTO.getUsername();
+        String username = JwtUtils.getUsernameFromSession();
         UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new QuoraException(String.format("User '%s' does not exist", username)));
 
